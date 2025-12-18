@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import prettier from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default [
     js.configs.recommended,
@@ -13,6 +14,9 @@ export default [
                 ecmaVersion: 2022,
                 sourceType: 'module',
                 project: './tsconfig.json'
+            },
+            globals: {
+              ...globals.node
             }
         },
         plugins: {
@@ -30,7 +34,7 @@ export default [
             '@typescript-eslint/explicit-function-return-type': 'off',
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/no-non-null-assertion': 'warn',
-            '@typescript-eslint/prefer-const': 'error',
+            '@/prefer-const': 'error',
 
             'no-console': 'warn',
             'no-debugger': 'error',
