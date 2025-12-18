@@ -1,11 +1,13 @@
 import dotenv from 'dotenv'
+
+dotenv.config()
+
 import express from 'express'
 import cors from 'cors'
 import cookieParser from "cookie-parser";
 import mongoose from 'mongoose';
 import router from './router';
 
-dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 const DB_URL = process.env.DB_URL || ''
