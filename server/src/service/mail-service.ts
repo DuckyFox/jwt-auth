@@ -41,11 +41,12 @@ class MailService {
             html: `
                 <div>
                     <h1>Для активации перейдите по ссылке</h1>
-                    <a href="${link}">${link}</a>
+                    <a href="${link}">ТЫК СЮДА</a>
                 </div>
             `
         });
     }
+
 }
 
 export default new MailService()
