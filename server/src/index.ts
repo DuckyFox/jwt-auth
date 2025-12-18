@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import { errorMiddleware } from '../middleware/error-middleware';
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 app.use('/api', router)
+app.use(errorMiddleware)
 
 const start = async () => {
     try {
