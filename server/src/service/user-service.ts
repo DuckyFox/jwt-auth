@@ -36,6 +36,24 @@ class UserService {
         await user.save()
     }
 
+    async login(email:string, password:string) {
+        const user = await UserModel.findOne({email})
+        if (!user) {
+            throw ApiError.BadRequest('No user with this email')
+        }
+        const isPassEquals = await bcrypt.compare(password, user.password)
+        if (!isPassEquals) {
+            throw ApiError.BadRequest('Incorrect password')
+        }
+        const userDto = new UserDto(user)
+        const tokens = tokenService.generateToken({ ...userDto });
+        await tokenService.saveToken(userDto.id, tokens.refreshToken)
+
+        return {
+            ...tokens,
+            user: userDto,
+        }
+    }
 }
 
 export default new UserService()
