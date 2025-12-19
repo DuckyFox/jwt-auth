@@ -5,14 +5,10 @@ import type { Types } from 'mongoose';
 import { TokenPayloadInterface } from '../types';
 import { ApiError } from '../exceptions/api-error';
 
-
-const jwtAccSecret = process.env.JWT_ACCESS_SECRET || uuidv4()
-const jwtRefSecret = process.env.JWT_REFRESH_SECRET || uuidv4()
-
 class TokenService {
     generateToken(payload: TokenPayloadInterface) {
-        const accessToken = jwt.sign(payload, jwtAccSecret, {expiresIn:'30m'});
-        const refreshToken = jwt.sign(payload, jwtRefSecret, {expiresIn:'30d'});
+        const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn:'30m'});
+        const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {expiresIn:'30d'});
         return {
             accessToken,
             refreshToken
