@@ -3,11 +3,15 @@
 import React, {useState} from 'react';
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
+import {useUser} from "@/store/store";
 
 const LoginForm: React.FC = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+
+    const store = useUser()
+    console.log(store)
 
     return (
         <form>
@@ -23,8 +27,8 @@ const LoginForm: React.FC = () => {
                 type='text'
                 placeholder='Enter password'
             />
-            <Button>Login</Button>
-            <Button>Registration</Button>
+            <Button onClick={()=>store.login(email, password)}>Login</Button>
+            <Button onClick={()=>store.register(email, password)}>Registration</Button>
         </form>
     );
 };

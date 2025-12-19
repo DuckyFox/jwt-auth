@@ -3,7 +3,17 @@ import {UserInterface} from "@/models/UserInterface";
 import AuthService from "@/services/AuthService";
 import { AxiosError } from 'axios';
 
-export const useUser = create((set) => ({
+interface UserState {
+    user: UserInterface;
+    isAuth: boolean;
+    setAuth: (bool: boolean) => void;
+    setUser: (user: UserInterface) => void;
+    login: (email: string, password: string) => void;
+    register: (email: string, password: string) => void;
+    logout: () => void;
+}
+
+export const useUser = create<UserState>((set) => ({
     user: {} as UserInterface,
     isAuth: false,
     setAuth: (bool: boolean) => set({isAuth: bool}),
@@ -37,7 +47,7 @@ export const useUser = create((set) => ({
             const response = await AuthService.logout()
             localStorage.removeItem('token')
             set({isAuth: false})
-            set({} as UserInterface)
+            set({user: {} as UserInterface})
         } catch (e: unknown) {
             if (e instanceof AxiosError) {
                 console.log(e.response?.data?.message);
