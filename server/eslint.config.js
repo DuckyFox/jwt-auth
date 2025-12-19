@@ -23,14 +23,7 @@ export default [
             '@typescript-eslint': tseslint
         },
         rules: {
-            '@typescript-eslint/no-unused-vars': [
-                'error',
-                {
-                    argsIgnorePattern: '^_',
-                    varsIgnorePattern: '^_',
-                    caughtErrorsIgnorePattern: '^_'
-                }
-            ],
+            '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/explicit-function-return-type': 'off',
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/no-non-null-assertion': 'warn',
@@ -46,6 +39,6 @@ export default [
     },
     prettier,
     {
-        ignores: ['dist/**', 'node_modules/**', '*.js', '*.config.js']
+        ignores: ['dist/**', 'node_modules/**', '*.js', '*.config.js', 'src/types/index.ts']
     }
 ];

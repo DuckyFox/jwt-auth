@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import type { Transporter } from 'nodemailer';
 
 class MailService {
@@ -15,7 +15,9 @@ class MailService {
         const mailPassword = process.env.SMTP_PASSWORD;
 
         if (!mailHost || !mailUser || !mailPassword) {
-            throw new Error('SMTP credentials not configured. Check SMTP_HOST, SMTP_USER, SMTP_PASSWORD in .env');
+            throw new Error(
+                'SMTP credentials not configured. Check SMTP_HOST, SMTP_USER, SMTP_PASSWORD in .env'
+            );
         }
 
         this.transporter = nodemailer.createTransport({
@@ -25,7 +27,7 @@ class MailService {
             auth: {
                 user: mailUser,
                 pass: mailPassword
-            },
+            }
         });
 
         return this.transporter;
@@ -46,7 +48,6 @@ class MailService {
             `
         });
     }
-
 }
 
-export default new MailService()
+export default new MailService();

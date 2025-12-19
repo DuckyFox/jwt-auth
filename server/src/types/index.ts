@@ -1,6 +1,7 @@
 import { type Document, type Types } from 'mongoose';
 
 export interface UserInterface extends Document {
+    _id: Types.ObjectId;
     email: string;
     password: string;
     isActivated: boolean;
@@ -18,4 +19,12 @@ export interface TokenPayloadInterface {
     email: string;
     id: Types.ObjectId;
     isActivated: boolean;
+}
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: TokenPayloadInterface;
+        }
+    }
 }

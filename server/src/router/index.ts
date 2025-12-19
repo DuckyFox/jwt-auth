@@ -1,18 +1,20 @@
 import { Router } from 'express';
 import userController from '../controller/user-controller';
-import {body} from "express-validator";
-import { authMiddleware } from '../controller/auth-middleware';
+import { body } from 'express-validator';
+import { authMiddleware } from '../middleware/auth-middleware';
 
 const router = Router();
 
-router.post('/registration',
+router.post(
+    '/registration',
     body('email').isEmail(),
-    body('password').isLength({min:3, max:30}),
-    userController.registration)
-router.post('/login', userController.login)
-router.post('/logout', userController.logout)
-router.get('/activate/:link', userController.activate)
-router.get('/refresh', userController.refresh)
-router.get('/users', authMiddleware, userController.getUsers)
+    body('password').isLength({ min: 3, max: 30 }),
+    userController.registration
+);
+router.post('/login', userController.login);
+router.post('/logout', userController.logout);
+router.get('/activate/:link', userController.activate);
+router.get('/refresh', userController.refresh);
+router.get('/users', authMiddleware, userController.getUsers);
 
-export default router
+export default router;
