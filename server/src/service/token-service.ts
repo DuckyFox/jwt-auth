@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TokenModel } from '../models/token-model';
 import type { Types } from 'mongoose';
 import { TokenPayloadInterface } from '../types';
+import { ApiError } from '../exceptions/api-error';
 
 
 const jwtAccSecret = process.env.JWT_ACCESS_SECRET || uuidv4()
@@ -26,6 +27,11 @@ class TokenService {
         }
         const token = await TokenModel.create({user: userId, refreshToken})
         return token
+    }
+
+    async removeToken(refreshToken:string) {
+        const tokenData = await TokenModel.deleteOne({refreshToken})
+        return tokenData
     }
 }
 
