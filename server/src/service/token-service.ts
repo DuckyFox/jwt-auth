@@ -4,6 +4,7 @@ import { TokenModel } from '../models/token-model';
 import type { Types } from 'mongoose';
 import { TokenPayloadInterface } from '../types';
 
+
 const jwtAccSecret = process.env.JWT_ACCESS_SECRET || uuidv4()
 const jwtRefSecret = process.env.JWT_REFRESH_SECRET || uuidv4()
 

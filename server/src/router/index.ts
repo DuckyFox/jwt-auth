@@ -1,8 +1,13 @@
 import { Router } from 'express';
 import userController from '../controller/user-controller';
+import {body} from "express-validator";
+
 const router = Router();
 
-router.post('/registration', userController.registration)
+router.post('/registration',
+    body('email').isEmail(),
+    body('password').isLength({min:3, max:30}),
+    userController.registration)
 router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 router.get('/activate/:link', userController.activate)
