@@ -1,12 +1,11 @@
-import LoginForm from "@/components/LoginForm";
+import VisualiseSection from "@/components/VisualiseSection";
 
 export default function Home() {
-
-    return (
-        <div >
-            <main >
-                <LoginForm/>
-            </main>
-        </div>
-    );
+  return (
+    <div>
+      <main>
+        <VisualiseSection />
+      </main>
+    </div>
+  );
 }

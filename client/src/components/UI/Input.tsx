@@ -1,12 +1,9 @@
-'use client'
+"use client";
 
-import React, {InputHTMLAttributes} from 'react';
+import React, { InputHTMLAttributes } from "react";
 
 const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
-
-    return (
-        <input {...props}/>
-    );
+  return <input {...props} />;
 };
 
 export default Input;

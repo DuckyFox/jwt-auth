@@ -1,7 +1,7 @@
-import { type Types } from 'mongoose';
+import { type Types } from "mongoose";
 
 export interface UserInterface {
-    email: string;
-    isActivated: boolean;
-    id: Types.ObjectId;
+  email: string;
+  isActivated: boolean;
+  id: Types.ObjectId;
 }

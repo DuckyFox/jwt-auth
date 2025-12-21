@@ -1,83 +1,57 @@
-'use client'
+"use client";
 
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, { FormEvent, useState } from "react";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
-import {useUser} from "@/store/store";
-import {UserInterface} from "@/models/UserInterface";
-import UserService from "@/services/UserServices";
+import { useUser } from "@/store/store";
 
 const LoginForm: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [users, setUsers] = useState<UserInterface[]>([])
-    const formSubmitHandler = (e: FormEvent) => {
-        e.preventDefault()
-    }
+  const formSubmitHandler = (e: FormEvent) => {
+    e.preventDefault();
+  };
 
-    const store = useUser()
+  const login = useUser((state) => state.login);
+  const register = useUser((state) => state.register);
 
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            store.checkAuth()
-        }
-    }, []);
-
-    console.log(store.isLoading)
-
-    async function getUsers() {
-        try {
-            const response = await UserService.fetchUsers()
-            setUsers(response.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    if (store.isLoading) {
-        return <div>Загрузка</div>
-    }
-
-    else if (store.isAuth) {
-        return (
-            <div>
-                <h1>{`Вход выполнен ${store.user.email}`}</h1>
-                <Button onClick={()=>store.logout()}>Logout</Button>
-                <Button onClick={() => getUsers()}>
-                    Get all users
-                </Button>
-                {users.map((item)=><div key={item.email}>{item.email}</div>)}
-            </div>
-
-        )
-    } else {
-        return (
-            <div>
-                <form
-                    onSubmit={(e) => formSubmitHandler(e)}
-                >
-                    <Input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        type='email'
-                        placeholder='Enter e-mail'
-                    />
-                    <Input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        type='text'
-                        placeholder='Enter password'
-                    />
-                    <Button onClick={() => store.login(email, password)}>Login</Button>
-                    <Button onClick={() => store.register(email, password)}>Registration</Button>
-                </form>
-                <Button onClick={() => getUsers()}>
-                    Get all users
-                </Button>
-            </div>
-        );
-    }
+  return (
+    <form onSubmit={(e) => formSubmitHandler(e)} className="space-y-4">
+      <div>
+        <Input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="Введите email"
+          className="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+        />
+      </div>
+      <div>
+        <Input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Введите пароль"
+          className="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+        />
+      </div>
+      <div className="flex gap-3 pt-2">
+        <Button
+          onClick={() => login(email, password)}
+          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-medium transition-colors"
+        >
+          Войти
+        </Button>
+        <Button
+          onClick={() => register(email, password)}
+          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-medium transition-colors"
+        >
+          Регистрация
+        </Button>
+      </div>
+    </form>
+  );
 };
 
 export default LoginForm;
